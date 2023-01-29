@@ -29,9 +29,9 @@ def decode(ciphertext: str, shift=None):
     plaintext = ""
     for letter in ciphertext:
         if letter.isupper():
-            plaintext += upper_alphabet[upper_alphabet.index(letter) - 1 % 26]
+            plaintext += upper_alphabet[upper_alphabet.index(letter) - shift % 26]
         elif letter.islower():
-            plaintext += alphabet[alphabet.index(letter) - 1 % 26]
+            plaintext += alphabet[alphabet.index(letter) - shift % 26]
         else:
             plaintext += letter
     return plaintext
@@ -42,6 +42,9 @@ def main(text: str, shift: int, do_encode: bool, do_decode: bool):
         print(f'The encoded text of "{text}" with a shift of {shift} is: \n\t{encode(text, shift)}')
 
     if do_decode:
+        if shift == -1:
+            shift = None
+        print(shift)
         print(f'The decoded text of "{text}" is likely to be: \n\t{decode(text, shift)}')
 
 
